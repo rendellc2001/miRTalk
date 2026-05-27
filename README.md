@@ -12,8 +12,8 @@ MicroRNAs are released from cells in extracellular vesicles (EVs), including exo
 
 ```
 # install devtools and install
-install.packages(pkgs = "devtools"")
-devtools::install_github("multitalk/miRTalk")
+install.packages(pkgs = "devtools")
+devtools::install_github("rendellc2001/miRTalk")
 ```
 
 OR
