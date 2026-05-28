@@ -54,13 +54,13 @@ create_miRTalk <- function(sc_data, sc_celltype, species, condition, if_normaliz
     sc_meta <- data.frame(cell = colnames(sc_data), celltype = sc_celltype_new, condition = condition, stringsAsFactors = FALSE)
     sc_data <- sc_data[rowSums(sc_data) > 0, ]
     sc_data <- Seurat::CreateSeuratObject(sc_data)
+    ver <- packageVersion("Seurat")
+    ver <- substr(ver,1,1)
     # if_normalize
     if (if_normalize == T) {
         sc_data <- Seurat::NormalizeData(sc_data,verbose = FALSE)
     }
     if (if_normalize == F) {
-        ver <- packageVersion("Seurat")
-        ver <- substr(ver,1,1)
         if (ver >= 5) {
         sc_data@assays$RNA$data <- sc_data@assays$RNA$counts
         } else {
@@ -71,8 +71,6 @@ create_miRTalk <- function(sc_data, sc_celltype, species, condition, if_normaliz
     sc_meta$evbiog_score <- .minmax_normalize(sc_data@meta.data$Cluster1)
     sc_meta$risc_score <- .minmax_normalize(sc_data@meta.data$Cluster2)
     sc_meta$ritac_score <- .minmax_normalize(sc_data@meta.data$Cluster3)
-    ver <- packageVersion("Seurat")
-    ver <- substr(ver,1,1)
     if (ver >= 5) {
         sc_data <- sc_data@assays$RNA$data
     } else {
